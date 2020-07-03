@@ -1,14 +1,22 @@
+//Install express server
 const express = require('express');
 const path = require('path');
+
 const app = express();
 
-// Serve static files....
-app.use(express.static(__dirname + '/dist/MyStopWatch'));
+// Serve only the static files form the dist directory
+app.use(express.static('./dist/MyStopWatch'));
 
-// Send all requests to index.html
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/dist/MyStopWatch/index.html'));
+app.get('/*', function(req,res) {
+
+  if(req.url === '/') {
+    res.sendFile(path.join(__dirname,'/dist/MyStopWatch/index.html'));
+  }
+  else {
+    res.sendFile(path.join(__dirname, '/dist/MyStopWatch' + req.url))
+  }
+
 });
 
-// default Heroku PORT
-app.listen(process.env.PORT || 3000);
+// Start the app by listening on the default Heroku port
+app.listen(process.env.PORT || 8080);
