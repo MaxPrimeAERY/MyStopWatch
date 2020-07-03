@@ -1,0 +1,17 @@
+<div id="clock">
+  <p class="date"></p>
+  <p class="time">{{ HMSTime }}</p>
+  <p class="text"></p>
+  <section class="timer-button-container">
+
+    <button class="timer-button" *ngIf="!running; else elseBlock" (click)="startTimer()">Start</button>
+    <ng-template #elseBlock>
+      <button class="timer-button" (click)="stopTimer()">Stop</button>
+    </ng-template>
+
+    <button class="timer-button" (click)="singleWaitClick()">Wait</button>
+    <button class="timer-button" (click)="resetTimer()">Reset</button>
+  </section>
+</div>
+
+
