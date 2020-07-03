@@ -20,20 +20,17 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.measuredTime.setSeconds(this.time);
     this.HMSTime = this.measuredTime.toISOString().substr(11, 8);
-    var temp = this.HMSTime.split(':')[0];
-    console.log(temp);
   }
 
   startTimer() {
     this.running = true;
     this.buttonStartStop = 'Stop';
+    this.time = -1; //fix for start from 1
     this.subscription = timer(0, 1000).subscribe(ec => {
       this.time++;
       this.measuredTime = new Date(null);
       this.measuredTime.setSeconds(this.time); // specify value of SECONDS
       this.HMSTime = this.measuredTime.toISOString().substr(11, 8);
-      var temp = this.HMSTime.split(':')[0];
-      console.log(temp);
     });
   }
 
@@ -56,11 +53,11 @@ export class AppComponent implements OnInit {
   }
 
   resetTimer() {
-    this.time = 0;
-    if (this.subscription !== undefined) {
-      this.subscription.unsubscribe();
-    }
+    //console.log("Before = "+this.time);
+    this.stopTimer();
+    //console.log("After 1 = "+this.time);
     this.startTimer();
+    //console.log("After 2 = "+this.time);
   }
 
   singleWaitClick(){
